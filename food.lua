@@ -7,10 +7,19 @@ local function make_food(name, hunger)
 
   local groups = table.copy(def.groups or {})
   groups.food = groups.food or 2
+  groups.eatable = hunger                 -- important in MCL-style games
+  groups.can_eat_when_full = groups.can_eat_when_full or 1
+
+  -- wrapper around do_item_eat
+  local eat = minetest.item_eat(hunger)
 
   minetest.override_item(name, {
+    on_use = function(itemstack, user, pointed_thing)
+      return eat(itemstack, user, pointed_thing)   -- must return the new stack :contentReference[oaicite:0]{index=0}
+    end,
+    -- optional: allow eating when pointing at nodes too
     on_place = function(itemstack, user, pointed_thing)
-      return core.do_item_eat(hunger, "", itemstack, user, pointed_thing)
+      return eat(itemstack, user, pointed_thing)
     end,
     groups = groups,
   })
