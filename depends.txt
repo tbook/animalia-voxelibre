@@ -1,2 +1,3 @@
 animalia
 mcl_hunger
+mcl_tools
