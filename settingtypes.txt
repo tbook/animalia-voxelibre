@@ -51,3 +51,6 @@ animalia_mcl_hunger.suppressed_mobs (Suppressed mobs_mc spawn IDs) string mobs_m
 
 #    Extra item IDs accepted for feeding/breeding Animalia pigs (appended to pig follow list).
 animalia_mcl_hunger.pig_food_items (Extra Animalia pig food IDs) string mcl_farming:carrot_item,mcl_farming:potato_item,mcl_farming:beetroot_item,mcl_farming:carrot_item_gold
+
+#    Extra item/group IDs accepted for feeding/taming/breeding Animalia wolves.
+animalia_mcl_hunger.wolf_food_items (Extra Animalia wolf food IDs) string mcl_mobitems:beef,mcl_mobitems:mutton,mcl_mobitems:porkchop,mcl_mobitems:chicken,mcl_mobitems:bone

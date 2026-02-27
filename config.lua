@@ -93,4 +93,11 @@ animalia_mcl_hunger = {
     "mcl_farming:beetroot_item",
     "mcl_farming:carrot_item_gold",
   }),
+  wolf_food_items = get_csv("wolf_food_items", {
+    "mcl_mobitems:beef",
+    "mcl_mobitems:mutton",
+    "mcl_mobitems:porkchop",
+    "mcl_mobitems:chicken",
+    "mcl_mobitems:bone",
+  }),
 }

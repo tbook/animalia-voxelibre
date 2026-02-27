@@ -61,6 +61,7 @@ Common ones:
 - `animalia_mcl_hunger.feather_items` (CSV list)
 - `animalia_mcl_hunger.suppressed_mobs` (CSV list)
 - `animalia_mcl_hunger.pig_food_items` (CSV list)
+- `animalia_mcl_hunger.wolf_food_items` (CSV list)
 
 The CSV list settings pick the first registered item ID at runtime, so you can tune compatibility without editing Lua files.
 
@@ -112,6 +113,14 @@ Animalia pigs are fed from their follow list. This mod appends common VoxeLibre 
 - `mcl_farming:potato_item`
 - `mcl_farming:beetroot_item`
 - `mcl_farming:carrot_item_gold`
+
+Animalia wolves are also extended to accept common VoxeLibre raw meats by default:
+
+- `mcl_mobitems:beef`
+- `mcl_mobitems:mutton`
+- `mcl_mobitems:porkchop`
+- `mcl_mobitems:chicken`
+- `mcl_mobitems:bone`
 
 ## Notes on upstream naming
 
