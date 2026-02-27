@@ -13,6 +13,7 @@ end
 local palette  = {
   black = {"Black", "#000000b0"},
   blue = {"Blue", "#015dbb70"},
+  light_blue = {"Light Blue", "#5070FFD0"},
   brown = {"Brown", "#663300a0"},
   cyan = {"Cyan", "#01ffd870"},
   dark_green = {"Dark Green", "#005b0770"},
@@ -33,6 +34,7 @@ local function mcl_wool_color(dye_color)
   local map = {
     black = {"black"},
     blue = {"blue"},
+    light_blue = {"light_blue", "blue"},
     brown = {"brown"},
     cyan = {"cyan"},
     green = {"green", "lime"},
@@ -60,6 +62,38 @@ local function mcl_wool_item(dye_color)
   return "mcl_wool:" .. mcl_wool_color(dye_color or "white")
 end
 
+local function set_wool_texture(self)
+  local tex
+  if self.dye_color and self.dye_color ~= "white" and palette[self.dye_color] then
+    tex = "animalia_sheep.png^(animalia_sheep_wool.png^[multiply:" ..
+      palette[self.dye_color][2] .. ")"
+  else
+    tex = "animalia_sheep.png^animalia_sheep_wool.png"
+  end
+  self.object:set_properties({textures = {tex}})
+end
+
+local function normalize_dye_color(tool_name)
+  if not tool_name then
+    return nil
+  end
+
+  local mod, color = tool_name:match("^([^:]+):(.+)$")
+  if not mod or not color then
+    return nil
+  end
+
+  if mod ~= "dye" and mod ~= "mcl_dye" then
+    return nil
+  end
+
+  local map = {
+    lightblue = "light_blue",
+    darkgrey = "dark_grey",
+  }
+  return map[color] or color
+end
+
 local function is_shears(itemstack)
   if not itemstack then return false end
   local name = itemstack:get_name()
@@ -79,6 +113,30 @@ minetest.register_on_mods_loaded(function()
   end
 
   local old_on_rightclick = def.on_rightclick
+  local old_step_func = def.step_func
+
+  def.step_func = function(self, ...)
+    if old_step_func then
+      old_step_func(self, ...)
+    end
+
+    local regrow_at = self:recall("wool_regrow_at") or 0
+    if regrow_at <= 0 then
+      return
+    end
+
+    if not self.collected then
+      set_wool_texture(self)
+      self:memorize("wool_regrow_at", 0)
+      return
+    end
+
+    if minetest.get_gametime() >= regrow_at then
+      self.collected = self:memorize("collected", false)
+      self:memorize("wool_regrow_at", 0)
+      set_wool_texture(self)
+    end
+  end
 
   -- Override in-place (do NOT re-register animalia:sheep)
   def.on_rightclick = function(self, clicker)
@@ -117,30 +175,14 @@ minetest.register_on_mods_loaded(function()
         clicker:set_wielded_item(tool)
       end
 
-      minetest.after(SETTINGS.sheep_regrow_seconds, function()
-        if self and self.object and self.object:get_luaentity() == self then
-          self.collected = self:memorize("collected", false)
-
-          local tex
-          if self.dye_color and self.dye_color ~= "white" then
-            tex = "animalia_sheep.png^(animalia_sheep_wool.png^[multiply:" ..
-                  palette[self.dye_color][2] .. ")"
-          else
-            tex = "animalia_sheep.png^animalia_sheep_wool.png"
-          end
-
-          self.object:set_properties({
-            textures = {tex}
-          })
-        end
-      end)
+      self:memorize("wool_regrow_at", minetest.get_gametime() + SETTINGS.sheep_regrow_seconds)
 
       return
     end
 
     -- Dyeing: keep Animalia’s visuals, but make drops use mcl_wool instead of wool:
-    if tool_name:match("^dye:") then
-      local dye_color = tool_name:split(":")[2]
+    local dye_color = normalize_dye_color(tool_name)
+    if dye_color then
       if palette[dye_color] then
         self.dye_color = self:memorize("dye_color", dye_color)
 

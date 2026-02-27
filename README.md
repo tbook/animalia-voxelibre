@@ -9,9 +9,11 @@ Animalia is written to work across multiple game ecosystems, but some interactio
 This mod patches selected Animalia mob interactions so they behave naturally in VoxeLibre-style games:
 
 - Sheep can be sheared with `mcl_tools:shears` and drop `mcl_wool:*`.
+- Sheep dyeing accepts both `dye:*` and `mcl_dye:*`.
 - Cows can be milked with `mcl_buckets:bucket_empty` and return `mcl_mobitems:milk_bucket` (or fallback).
 - Horses can be saddled with `mcl_mobitems:saddle`.
 - Animalia meats are marked edible in `mcl_hunger` games.
+- Duplicate Animalia utility/material items can be canonicalized to VoxeLibre IDs.
 
 ## Local assumptions
 
@@ -31,7 +33,7 @@ The behavior should also be relevant to modern VoxeLibre item naming, but this m
 1. Place this mod in your world or global mods folder.
 2. Ensure dependencies are available:
    - Required: `animalia`, `mcl_hunger`
-   - Optional but typically present in VoxeLibre stacks: `mcl_tools`, `mcl_wool`, `mcl_buckets`, `mcl_mobitems`, `dye`
+   - Optional but typically present in VoxeLibre stacks: `mcl_tools`, `mcl_wool`, `mcl_buckets`, `mcl_mobitems`, `mcl_dye`, `dye`
 3. Enable the mod in your world.
 
 ## Settings
@@ -44,14 +46,43 @@ Common ones:
 - `animalia_mcl_hunger.enable_shearing` (default: `true`)
 - `animalia_mcl_hunger.enable_milking` (default: `true`)
 - `animalia_mcl_hunger.enable_horse_saddle` (default: `true`)
-- `animalia_mcl_hunger.sheep_regrow_seconds` (default: `600`)
+- `animalia_mcl_hunger.enable_item_dedupe` (default: `true`)
+- `animalia_mcl_hunger.dedupe_meats` (default: `true`)
+- `animalia_mcl_hunger.sheep_regrow_seconds` (default: `600`, real-time seconds)
 - `animalia_mcl_hunger.milk_cooldown_seconds` (default: `300`)
 - `animalia_mcl_hunger.shears_items` (CSV list)
 - `animalia_mcl_hunger.empty_bucket_items` (CSV list)
 - `animalia_mcl_hunger.milk_bucket_items` (CSV list)
 - `animalia_mcl_hunger.horse_saddle_items` (CSV list)
+- `animalia_mcl_hunger.leather_items` (CSV list)
+- `animalia_mcl_hunger.feather_items` (CSV list)
 
 The CSV list settings pick the first registered item ID at runtime, so you can tune compatibility without editing Lua files.
+
+## Duplicate item policy
+
+With `animalia_mcl_hunger.enable_item_dedupe = true`, this mod treats VoxeLibre items as canonical where available:
+
+- `animalia:shears` -> `mcl_tools:shears`
+- `animalia:saddle` -> `mcl_mobitems:saddle`
+- `animalia:bucket_milk` -> `mcl_mobitems:milk_bucket`
+- `animalia:leather` -> `mcl_mobitems:leather`
+- `animalia:feather` -> `mcl_mobitems:feather`
+
+It also clears crafting outputs for those Animalia IDs and rewrites registered mob drops to canonical IDs after mods load.
+
+When dedupe is enabled, this mod also adds compatibility groups (`leather`, `feather`, `food_milk`) to the selected canonical VoxeLibre items so Animalia recipes and checks still work.
+
+If `animalia_mcl_hunger.dedupe_meats = true`, these IDs are also canonicalized when available:
+
+- `animalia:beef_raw` -> `mcl_mobitems:beef`
+- `animalia:beef_cooked` -> `mcl_mobitems:cooked_beef`
+- `animalia:mutton_raw` -> `mcl_mobitems:mutton`
+- `animalia:mutton_cooked` -> `mcl_mobitems:cooked_mutton`
+- `animalia:porkchop_raw` -> `mcl_mobitems:porkchop`
+- `animalia:porkchop_cooked` -> `mcl_mobitems:cooked_porkchop`
+- `animalia:poultry_raw` -> `mcl_mobitems:chicken`
+- `animalia:poultry_cooked` -> `mcl_mobitems:cooked_chicken`
 
 ## Notes on upstream naming
 

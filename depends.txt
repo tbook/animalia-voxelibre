@@ -5,5 +5,6 @@ mcl_wool?
 mcl_buckets?
 mcl_mobitems?
 mcl_milk?
+mcl_dye?
 dye?
 bucket?

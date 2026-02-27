@@ -10,6 +10,12 @@ animalia_mcl_hunger.enable_milking (Enable cow milking compat) bool true
 #    Enable horse saddle compat for VoxeLibre saddle items.
 animalia_mcl_hunger.enable_horse_saddle (Enable horse saddle compat) bool true
 
+#    Replace duplicate Animalia items (saddle/shears/milk/leather/feather) with VoxeLibre IDs.
+animalia_mcl_hunger.enable_item_dedupe (Enable duplicate-item dedupe) bool true
+
+#    Also dedupe common meat duplicates (beef/mutton/pork/chicken) to VoxeLibre IDs.
+animalia_mcl_hunger.dedupe_meats (Dedupe common meat item IDs) bool true
+
 #    Wool regrow delay after shearing a sheep (seconds).
 animalia_mcl_hunger.sheep_regrow_seconds (Sheep wool regrow delay) int 600 0 86400
 
@@ -27,3 +33,9 @@ animalia_mcl_hunger.milk_bucket_items (Candidate milk bucket IDs) string mcl_mob
 
 #    Comma-separated list of saddle item IDs accepted on Animalia horses.
 animalia_mcl_hunger.horse_saddle_items (Supported horse saddle item IDs) string mcl_mobitems:saddle
+
+#    Comma-separated list of leather item IDs (first registered ID is used as canonical drop/output).
+animalia_mcl_hunger.leather_items (Candidate leather item IDs) string mcl_mobitems:leather,animalia:leather
+
+#    Comma-separated list of feather item IDs (first registered ID is used as canonical drop/output).
+animalia_mcl_hunger.feather_items (Candidate feather item IDs) string mcl_mobitems:feather,animalia:feather
