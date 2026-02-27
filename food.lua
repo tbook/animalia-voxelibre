@@ -1,7 +1,11 @@
+if not animalia_mcl_hunger.enable_food then
+  return
+end
+
 local function make_food(name, hunger)
   local def = minetest.registered_items[name]
   if not def then
-    minetest.log("warning", "[animalia_mcl] missing item: " .. name)
+    minetest.log("warning", "[animalia_mcl_hunger] missing item: " .. name)
     return
   end
 
@@ -15,7 +19,7 @@ local function make_food(name, hunger)
 
   minetest.override_item(name, {
     on_use = function(itemstack, user, pointed_thing)
-      return eat(itemstack, user, pointed_thing)   -- must return the new stack :contentReference[oaicite:0]{index=0}
+      return eat(itemstack, user, pointed_thing)
     end,
     -- optional: allow eating when pointing at nodes too
     on_place = function(itemstack, user, pointed_thing)

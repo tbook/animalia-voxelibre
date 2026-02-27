@@ -1,4 +1,7 @@
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/food.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/shearing.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/milking.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/horse_compat.lua")
+local modpath = minetest.get_modpath(minetest.get_current_modname())
+
+dofile(modpath .. "/config.lua")
+dofile(modpath .. "/food.lua")
+dofile(modpath .. "/shearing.lua")
+dofile(modpath .. "/milking.lua")
+dofile(modpath .. "/horse_compat.lua")

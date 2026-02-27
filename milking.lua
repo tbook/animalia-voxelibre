@@ -2,21 +2,11 @@
 -- VoxeLibre compat: milk Animalia cows with an empty bucket.
 
 local COW_ENTITY = "animalia:cow"
+local SETTINGS = animalia_mcl_hunger
 
--- Cooldown (seconds) between milks per cow
-local MILK_COOLDOWN = 300 -- 5 minutes; tweak to taste
-
--- Candidate item IDs (we'll auto-pick the first that exists)
-local EMPTY_BUCKET_CANDIDATES = {
-  "mcl_buckets:bucket_empty",
-  "bucket:bucket_empty", -- fallback if some bucket mod provides it
-}
-
-local MILK_BUCKET_CANDIDATES = {
-  "mcl_mobitems:milk_bucket",
-  "mcl_milk:milk_bucket",
-  "mcl_milk:milk",
-}
+if not SETTINGS.enable_milking then
+  return
+end
 
 local function first_registered(candidates)
   for _, name in ipairs(candidates) do
@@ -27,8 +17,8 @@ local function first_registered(candidates)
   return nil
 end
 
-local EMPTY_BUCKET = first_registered(EMPTY_BUCKET_CANDIDATES)
-local MILK_BUCKET  = first_registered(MILK_BUCKET_CANDIDATES)
+local EMPTY_BUCKET = first_registered(SETTINGS.empty_bucket_items)
+local MILK_BUCKET = first_registered(SETTINGS.milk_bucket_items)
 
 local function give_item_or_drop(player, itemstack)
   local inv = player:get_inventory()
@@ -50,12 +40,14 @@ minetest.register_on_mods_loaded(function()
   end
 
   if not EMPTY_BUCKET then
-    minetest.log("warning", "[animalia_mcl_hunger] no empty bucket item found (tried mcl_buckets/bucket)")
+    minetest.log("warning",
+      "[animalia_mcl_hunger] no empty bucket item found from configured list")
     return
   end
 
   if not MILK_BUCKET then
-    minetest.log("warning", "[animalia_mcl_hunger] no milk bucket item found (tried mcl_mobitems/mcl_milk)")
+    minetest.log("warning",
+      "[animalia_mcl_hunger] no milk bucket item found from configured list")
     return
   end
 
@@ -98,7 +90,7 @@ minetest.register_on_mods_loaded(function()
       give_item_or_drop(clicker, ItemStack(MILK_BUCKET))
 
       -- Set cooldown
-      self:memorize("milk_next_ok_at", now + MILK_COOLDOWN)
+      self:memorize("milk_next_ok_at", now + SETTINGS.milk_cooldown_seconds)
 
       return
     end
@@ -111,6 +103,6 @@ minetest.register_on_mods_loaded(function()
 
   minetest.log("action",
     ("[animalia_mcl_hunger] Milking enabled for %s using %s -> %s (cooldown %ds)")
-      :format(COW_ENTITY, EMPTY_BUCKET, MILK_BUCKET, MILK_COOLDOWN)
+      :format(COW_ENTITY, EMPTY_BUCKET, MILK_BUCKET, SETTINGS.milk_cooldown_seconds)
   )
 end)

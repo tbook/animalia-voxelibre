@@ -1,0 +1,29 @@
+#    Enable Animalia meat overrides so items are always edible in mcl_hunger-based games.
+animalia_mcl_hunger.enable_food (Enable food compat) bool true
+
+#    Enable sheep shearing + dye compat (mcl shears/wool handling).
+animalia_mcl_hunger.enable_shearing (Enable sheep shearing compat) bool true
+
+#    Enable cow milking compat using VoxeLibre/MineClone bucket item names.
+animalia_mcl_hunger.enable_milking (Enable cow milking compat) bool true
+
+#    Enable horse saddle compat for VoxeLibre saddle items.
+animalia_mcl_hunger.enable_horse_saddle (Enable horse saddle compat) bool true
+
+#    Wool regrow delay after shearing a sheep (seconds).
+animalia_mcl_hunger.sheep_regrow_seconds (Sheep wool regrow delay) int 600 0 86400
+
+#    Per-cow cooldown between successful milks (seconds).
+animalia_mcl_hunger.milk_cooldown_seconds (Cow milking cooldown) int 300 0 86400
+
+#    Comma-separated list of shears item IDs accepted by sheep shearing compat.
+animalia_mcl_hunger.shears_items (Supported shears item IDs) string mcl_tools:shears,animalia:shears
+
+#    Comma-separated list of empty bucket item IDs (first registered ID is used).
+animalia_mcl_hunger.empty_bucket_items (Candidate empty bucket IDs) string mcl_buckets:bucket_empty,bucket:bucket_empty
+
+#    Comma-separated list of milk bucket item IDs to give players (first registered ID is used).
+animalia_mcl_hunger.milk_bucket_items (Candidate milk bucket IDs) string mcl_mobitems:milk_bucket,mcl_milk:milk_bucket,mcl_milk:milk,animalia:bucket_milk
+
+#    Comma-separated list of saddle item IDs accepted on Animalia horses.
+animalia_mcl_hunger.horse_saddle_items (Supported horse saddle item IDs) string mcl_mobitems:saddle

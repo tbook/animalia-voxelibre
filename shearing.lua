@@ -3,6 +3,11 @@
 
 local random = math.random
 local SHEEP_ENTITY = "animalia:sheep"
+local SETTINGS = animalia_mcl_hunger
+
+if not SETTINGS.enable_shearing then
+  return
+end
 
 -- Copy of Animalia palette (needed for texture tint when dyeing)
 local palette  = {
@@ -26,23 +31,29 @@ local palette  = {
 -- Map Animalia dye names to VoxeLibre wool color item suffixes
 local function mcl_wool_color(dye_color)
   local map = {
-    black = "black",
-    blue = "blue",
-    brown = "brown",
-    cyan = "cyan",
-    green = "green",
-    dark_green = "green",   -- best match
-    red = "red",
-    yellow = "yellow",
-    white = "white",
-    pink = "pink",
-    orange = "orange",
-    magenta = "magenta",
-    violet = "purple",      -- best match
-    grey = "light_gray",    -- best match (Minecraft has gray + light_gray)
-    dark_grey = "gray",     -- best match
+    black = {"black"},
+    blue = {"blue"},
+    brown = {"brown"},
+    cyan = {"cyan"},
+    green = {"green", "lime"},
+    dark_green = {"green", "lime"},
+    red = {"red"},
+    yellow = {"yellow"},
+    white = {"white"},
+    pink = {"pink"},
+    orange = {"orange"},
+    magenta = {"magenta"},
+    violet = {"purple"},
+    grey = {"light_gray", "silver", "grey"},
+    dark_grey = {"gray", "grey"},
   }
-  return map[dye_color] or "white"
+  local candidates = map[dye_color] or {"white"}
+  for _, color in ipairs(candidates) do
+    if minetest.registered_items["mcl_wool:" .. color] then
+      return color
+    end
+  end
+  return candidates[1]
 end
 
 local function mcl_wool_item(dye_color)
@@ -52,7 +63,12 @@ end
 local function is_shears(itemstack)
   if not itemstack then return false end
   local name = itemstack:get_name()
-  return name == "mcl_tools:shears" or name == "animalia:shears"
+  for _, shears_item in ipairs(SETTINGS.shears_items) do
+    if name == shears_item then
+      return true
+    end
+  end
+  return false
 end
 
 minetest.register_on_mods_loaded(function()
@@ -101,8 +117,7 @@ minetest.register_on_mods_loaded(function()
         clicker:set_wielded_item(tool)
       end
 
-      -- 🔁 Regrow after 10 minutes
-      minetest.after(600, function()
+      minetest.after(SETTINGS.sheep_regrow_seconds, function()
         if self and self.object and self.object:get_luaentity() == self then
           self.collected = self:memorize("collected", false)
 
