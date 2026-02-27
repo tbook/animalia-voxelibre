@@ -50,6 +50,7 @@ Common ones:
 - `animalia_mcl_hunger.enable_item_dedupe` (default: `true`)
 - `animalia_mcl_hunger.dedupe_meats` (default: `true`)
 - `animalia_mcl_hunger.enable_spawn_suppression` (default: `true`)
+- `animalia_mcl_hunger.enforce_spawn_suppression` (default: `true`)
 - `animalia_mcl_hunger.sheep_regrow_seconds` (default: `600`, real-time seconds)
 - `animalia_mcl_hunger.milk_cooldown_seconds` (default: `300`)
 - `animalia_mcl_hunger.shears_items` (CSV list)
@@ -59,6 +60,7 @@ Common ones:
 - `animalia_mcl_hunger.leather_items` (CSV list)
 - `animalia_mcl_hunger.feather_items` (CSV list)
 - `animalia_mcl_hunger.suppressed_mobs` (CSV list)
+- `animalia_mcl_hunger.pig_food_items` (CSV list)
 
 The CSV list settings pick the first registered item ID at runtime, so you can tune compatibility without editing Lua files.
 
@@ -90,6 +92,7 @@ If `animalia_mcl_hunger.dedupe_meats = true`, these IDs are also canonicalized w
 ## Spawn suppression
 
 With `animalia_mcl_hunger.enable_spawn_suppression = true`, this mod patches `mcl_mobs.spawn_setup` and skips configured `mobs_mc:*` spawn registrations.
+With `animalia_mcl_hunger.enforce_spawn_suppression = true`, it also removes suppressed `mobs_mc:*` entities near players every few seconds as a load-order-safe fallback.
 
 Default suppressed IDs:
 
@@ -100,6 +103,15 @@ Default suppressed IDs:
 - `mobs_mc:horse`
 
 This affects new natural spawns while the mod is active. It does not retroactively remove already-existing mobs.
+
+## Pig feeding
+
+Animalia pigs are fed from their follow list. This mod appends common VoxeLibre pig foods by default:
+
+- `mcl_farming:carrot_item`
+- `mcl_farming:potato_item`
+- `mcl_farming:beetroot_item`
+- `mcl_farming:carrot_item_gold`
 
 ## Notes on upstream naming
 

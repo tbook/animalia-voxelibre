@@ -19,6 +19,9 @@ animalia_mcl_hunger.dedupe_meats (Dedupe common meat item IDs) bool true
 #    Suppress selected VoxeLibre/MineClone passive mob spawn definitions when Animalia equivalents are preferred.
 animalia_mcl_hunger.enable_spawn_suppression (Suppress overlapping mobs_mc spawns) bool true
 
+#    Fallback enforcement: periodically remove suppressed mobs_mc entities near players.
+animalia_mcl_hunger.enforce_spawn_suppression (Actively remove suppressed mobs_mc entities) bool true
+
 #    Wool regrow delay after shearing a sheep (seconds).
 animalia_mcl_hunger.sheep_regrow_seconds (Sheep wool regrow delay) int 600 0 86400
 
@@ -45,3 +48,6 @@ animalia_mcl_hunger.feather_items (Candidate feather item IDs) string mcl_mobite
 
 #    Comma-separated list of mobs_mc entity names whose natural spawn_setup should be suppressed.
 animalia_mcl_hunger.suppressed_mobs (Suppressed mobs_mc spawn IDs) string mobs_mc:cow,mobs_mc:sheep,mobs_mc:pig,mobs_mc:chicken,mobs_mc:horse
+
+#    Extra item IDs accepted for feeding/breeding Animalia pigs (appended to pig follow list).
+animalia_mcl_hunger.pig_food_items (Extra Animalia pig food IDs) string mcl_farming:carrot_item,mcl_farming:potato_item,mcl_farming:beetroot_item,mcl_farming:carrot_item_gold
