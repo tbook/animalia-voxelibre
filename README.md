@@ -103,6 +103,20 @@ Animalia wolves are also extended to accept common VoxeLibre raw meats by defaul
 - `mcl_mobitems:chicken`
 - `mcl_mobitems:bone`
 
+## Optional spawn suppression
+
+To suppress overlapping default `mobs_mc` livestock spawns (and keep only Animalia equivalents), add this to your `minetest.conf`:
+
+```conf
+mobs_mc:cow = 0,0
+mobs_mc:sheep = 0,0
+mobs_mc:pig = 0,0
+mobs_mc:chicken = 0,0
+mobs_mc:horse = 0,0
+```
+
+This is the cleanest approach because it prevents those spawns at source instead of spawning and removing entities afterward.
+
 ## Notes on upstream naming
 
 - Luanti is the current name of the Minetest engine project: <https://www.luanti.org/>
