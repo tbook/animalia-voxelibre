@@ -1,5 +1,6 @@
 animalia
 mcl_hunger
+mcl_mobs?
 mcl_tools?
 mcl_wool?
 mcl_buckets?

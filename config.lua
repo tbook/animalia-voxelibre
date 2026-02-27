@@ -51,6 +51,7 @@ animalia_mcl_hunger = {
   enable_horse_saddle = get_bool("enable_horse_saddle", true),
   enable_item_dedupe = get_bool("enable_item_dedupe", true),
   dedupe_meats = get_bool("dedupe_meats", true),
+  enable_spawn_suppression = get_bool("enable_spawn_suppression", true),
   sheep_regrow_seconds = get_int("sheep_regrow_seconds", 600, 0),
   milk_cooldown_seconds = get_int("milk_cooldown_seconds", 300, 0),
   shears_items = get_csv("shears_items", {
@@ -77,5 +78,12 @@ animalia_mcl_hunger = {
   feather_items = get_csv("feather_items", {
     "mcl_mobitems:feather",
     "animalia:feather",
+  }),
+  suppressed_mobs = get_csv("suppressed_mobs", {
+    "mobs_mc:cow",
+    "mobs_mc:sheep",
+    "mobs_mc:pig",
+    "mobs_mc:chicken",
+    "mobs_mc:horse",
   }),
 }

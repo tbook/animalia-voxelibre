@@ -14,6 +14,7 @@ This mod patches selected Animalia mob interactions so they behave naturally in 
 - Horses can be saddled with `mcl_mobitems:saddle`.
 - Animalia meats are marked edible in `mcl_hunger` games.
 - Duplicate Animalia utility/material items can be canonicalized to VoxeLibre IDs.
+- Overlapping `mobs_mc:*` passive spawns can be suppressed while this mod is active.
 
 ## Local assumptions
 
@@ -48,6 +49,7 @@ Common ones:
 - `animalia_mcl_hunger.enable_horse_saddle` (default: `true`)
 - `animalia_mcl_hunger.enable_item_dedupe` (default: `true`)
 - `animalia_mcl_hunger.dedupe_meats` (default: `true`)
+- `animalia_mcl_hunger.enable_spawn_suppression` (default: `true`)
 - `animalia_mcl_hunger.sheep_regrow_seconds` (default: `600`, real-time seconds)
 - `animalia_mcl_hunger.milk_cooldown_seconds` (default: `300`)
 - `animalia_mcl_hunger.shears_items` (CSV list)
@@ -56,6 +58,7 @@ Common ones:
 - `animalia_mcl_hunger.horse_saddle_items` (CSV list)
 - `animalia_mcl_hunger.leather_items` (CSV list)
 - `animalia_mcl_hunger.feather_items` (CSV list)
+- `animalia_mcl_hunger.suppressed_mobs` (CSV list)
 
 The CSV list settings pick the first registered item ID at runtime, so you can tune compatibility without editing Lua files.
 
@@ -83,6 +86,20 @@ If `animalia_mcl_hunger.dedupe_meats = true`, these IDs are also canonicalized w
 - `animalia:porkchop_cooked` -> `mcl_mobitems:cooked_porkchop`
 - `animalia:poultry_raw` -> `mcl_mobitems:chicken`
 - `animalia:poultry_cooked` -> `mcl_mobitems:cooked_chicken`
+
+## Spawn suppression
+
+With `animalia_mcl_hunger.enable_spawn_suppression = true`, this mod patches `mcl_mobs.spawn_setup` and skips configured `mobs_mc:*` spawn registrations.
+
+Default suppressed IDs:
+
+- `mobs_mc:cow`
+- `mobs_mc:sheep`
+- `mobs_mc:pig`
+- `mobs_mc:chicken`
+- `mobs_mc:horse`
+
+This affects new natural spawns while the mod is active. It does not retroactively remove already-existing mobs.
 
 ## Notes on upstream naming
 
