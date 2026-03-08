@@ -29,13 +29,24 @@ local function make_food(name, hunger)
   })
 end
 
-make_food("animalia:beef_cooked", 8)
-make_food("animalia:beef_raw", 1)
-make_food("animalia:porkchop_cooked", 8)
-make_food("animalia:porkchop_raw", 1)
-make_food("animalia:mutton_cooked", 6)
-make_food("animalia:mutton_raw", 1)
-make_food("animalia:venison_cooked", 8)
-make_food("animalia:venison_raw", 1)
-make_food("animalia:poultry_cooked", 3)
-make_food("animalia:poultry_raw", 1)
+local foods = {
+  ["animalia:beef_cooked"] = 8,
+  ["animalia:beef_raw"] = 1,
+  ["animalia:mutton_cooked"] = 6,
+  ["animalia:mutton_raw"] = 1,
+  ["animalia:rat_cooked"] = 4,
+  ["animalia:rat_raw"] = 1,
+  ["animalia:porkchop_cooked"] = 8,
+  ["animalia:porkchop_raw"] = 1,
+  ["animalia:poultry_cooked"] = 3,
+  ["animalia:poultry_raw"] = 1,
+  ["animalia:venison_cooked"] = 8,
+  ["animalia:venison_raw"] = 1,
+  ["animalia:chicken_egg_fried"] = 4,
+  ["animalia:song_bird_egg_fried"] = 4,
+  ["animalia:turkey_egg_fried"] = 4,
+}
+
+for name, hunger in pairs(foods) do
+  make_food(name, hunger)
+end
