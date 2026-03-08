@@ -34,6 +34,9 @@ animalia_mcl_hunger.milk_bucket_items (Candidate milk bucket IDs) string mcl_mob
 #    Comma-separated list of saddle item IDs accepted on Animalia horses.
 animalia_mcl_hunger.horse_saddle_items (Supported horse saddle item IDs) string mcl_mobitems:saddle
 
+#    Comma-separated list of nametag item IDs accepted by Animalia mobs.
+animalia_mcl_hunger.nametag_items (Supported nametag item IDs) string mcl_mobitems:name_tag,mcl_mobitems:nametag,animalia:nametag
+
 #    Comma-separated list of leather item IDs (first registered ID is used as canonical drop/output).
 animalia_mcl_hunger.leather_items (Candidate leather item IDs) string mcl_mobitems:leather,animalia:leather
 

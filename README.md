@@ -12,7 +12,8 @@ This mod patches selected Animalia mob interactions so they behave naturally in 
 - Sheep dyeing accepts both `dye:*` and `mcl_dye:*`.
 - Cows can be milked with `mcl_buckets:bucket_empty` and return `mcl_mobitems:milk_bucket` (or fallback).
 - Horses can be saddled with `mcl_mobitems:saddle`.
-- Animalia meats are marked edible in `mcl_hunger` games.
+- Animalia food items are marked edible in `mcl_hunger` games (including fried eggs and rat meat).
+- Animalia mobs accept MCL nametags (with fallback to `animalia:nametag`).
 - Duplicate Animalia utility/material items can be canonicalized to VoxeLibre IDs.
 
 ## Local assumptions
@@ -54,12 +55,17 @@ Common ones:
 - `animalia_mcl_hunger.empty_bucket_items` (CSV list)
 - `animalia_mcl_hunger.milk_bucket_items` (CSV list)
 - `animalia_mcl_hunger.horse_saddle_items` (CSV list)
+- `animalia_mcl_hunger.nametag_items` (CSV list)
 - `animalia_mcl_hunger.leather_items` (CSV list)
 - `animalia_mcl_hunger.feather_items` (CSV list)
 - `animalia_mcl_hunger.pig_food_items` (CSV list)
 - `animalia_mcl_hunger.wolf_food_items` (CSV list)
 
 The CSV list settings pick the first registered item ID at runtime, so you can tune compatibility without editing Lua files.
+
+For nametags, `animalia_mcl_hunger.nametag_items` controls which item IDs are accepted by Animalia mobs.
+Defaults include `mcl_mobitems:name_tag`, `mcl_mobitems:nametag`, and `animalia:nametag`.
+If no configured MCL nametag exists, Animalia's own nametag behavior still works.
 
 ## Duplicate item policy
 
@@ -127,3 +133,21 @@ This is the cleanest approach because it prevents those spawns at source instead
 ## Scope
 
 This mod patches behavior at runtime by overriding `on_rightclick` handlers after mods load. It does **not** modify Animalia source files directly.
+
+## Changelog
+
+### 0.4 (2026-03-08)
+
+- Added Animalia food compat entries for fried eggs and rat meat:
+  - `animalia:chicken_egg_fried`
+  - `animalia:song_bird_egg_fried`
+  - `animalia:turkey_egg_fried`
+  - `animalia:rat_raw`
+  - `animalia:rat_cooked`
+- Added nametag compatibility patch so MCL nametags work on Animalia mobs.
+- Added `animalia_mcl_hunger.nametag_items` setting to configure accepted nametag IDs.
+- Updated documentation for the above changes.
+
+### 0.3
+
+- Prior compatibility baseline before the 0.4 food and nametag updates.

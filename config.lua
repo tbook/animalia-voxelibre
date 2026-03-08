@@ -70,6 +70,11 @@ animalia_mcl_hunger = {
   horse_saddle_items = get_csv("horse_saddle_items", {
     "mcl_mobitems:saddle",
   }),
+  nametag_items = get_csv("nametag_items", {
+    "mcl_mobitems:name_tag",
+    "mcl_mobitems:nametag",
+    "animalia:nametag",
+  }),
   leather_items = get_csv("leather_items", {
     "mcl_mobitems:leather",
     "animalia:leather",
